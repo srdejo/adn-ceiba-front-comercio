@@ -13,7 +13,7 @@ export class HttpService {
 
   public createDefaultOptions(): Options {
     return {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'accept': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
   }
 
@@ -32,7 +32,6 @@ export class HttpService {
 
     if (opts) {
       console.log(opts);
-      
       opts = {
         params: opts.params || defaultOpts.params,
         headers: opts.headers || defaultOpts.headers
@@ -53,11 +52,8 @@ export class HttpService {
   }
 
   public doPost<T, R>(serviceUrl: string, body: T, opts?: Options): Observable<R> {
-    //const ropts = this.createOptions(opts);
-    console.log("body", body);
-    console.log("opts", opts);
-    
-    return this.http.post<R>(serviceUrl, body);
+    const ropts = this.createOptions(opts);
+    return this.http.post<R>(serviceUrl, body, ropts);
   }
 
   public doDelete<R>(serviceUrl: string, opts?: Options): Observable<R> {
