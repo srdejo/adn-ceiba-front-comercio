@@ -39,7 +39,13 @@ export class ManejadorError implements ErrorHandler {
   }
 
   private mostrarErrorToast(mensaje): void {
-    this.toastService.show(mensaje, { classname: 'bg-danger text-light', delay: 5000 });
+    if (typeof (mensaje) == "string") {
+      this.toastService.show(mensaje, { classname: 'bg-danger text-light', delay: 5000 });
+    } else {
+
+      console.log(HTTP_ERRORES_CODIGO.PETICION_FALLIDA)
+      this.toastService.show(HTTP_ERRORES_CODIGO.PETICION_FALLIDA, { classname: 'bg-danger text-light', delay: 5000 });
+    }
   }
 
   public obtenerErrorHttpCode(httpCode: number): string {
